@@ -31,6 +31,7 @@ public class FootstepSound : MonoBehaviour
 
     public void OnHeadbobAnimationFinish(string animationName)
     {
-        Debug.Log($"{animationName} complete");
+        playerCapsuleAudioSource.pitch = Random.Range(0.9f, 1.1f);
+        playerCapsuleAudioSource.Play(); // play footstep
     }
 }
