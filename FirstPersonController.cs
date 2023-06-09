@@ -42,6 +42,7 @@ namespace StarterAssets
 		public float GroundedRadius = 0.5f;
 		[Tooltip("What layers the character uses as ground")]
 		public LayerMask GroundLayers;
+		static public int GroundLayer; 
 
 		[Header("Cinemachine")]
 		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -141,6 +142,14 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+			if (Grounded)
+			{
+				if (Physics.Raycast(spherePosition, Vector3.down * 2.3f, out RaycastHit hit, 2.3f, GroundLayers))
+				// if touching ground
+				{
+					GroundLayer = hit.transform.gameObject.layer;
+                }
+			}
 		}
 
 		private void CameraRotation()
